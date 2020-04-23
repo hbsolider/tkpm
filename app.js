@@ -11,6 +11,7 @@ require('dotenv').config();
 const indexRoute = require('./routes/index');
 const userRoute = require('./routes/user');
 const classRoute = require('./routes/class');
+const studentRoute = require('./routes/student');
 //*end declare
 db.connect();
 const app = express();
@@ -51,6 +52,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use('/', indexRoute);
 app.use('/user', userRoute);
 app.use('/class',classRoute);
+app.use('/student',studentRoute);
 //*end use
 app.listen(3000, () => {
     console.log('App listening on port 3000!');

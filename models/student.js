@@ -7,14 +7,14 @@ const student = mongoose.Schema({
     },
     class: {
         type: String,
-            require: true
+        require: true
     },
     address: {
         type: String,
         require: true
     },
     birthday:{
-        type: Date,
+        type: String,
         require:true
     },
     idteacher: {

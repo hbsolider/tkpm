@@ -1,21 +1,37 @@
 @import "../stylesheets/hover.css";
-body{
+
+body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-.main{
+
+.main {
     min-height: 80vh;
     position: relative;
 }
-.welcome{
+
+.welcome {
     height: 90%;
 }
-.choose{
+
+.choose {
     transform: translateY(100%);
 }
-.choose .view{
+
+.choose .view {
     padding: 20px 25px;
-    background-color: rgb(245,206,71);
+    background-color: rgb(245, 206, 71);
     border-radius: 10%;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-open .modal {
+    overflow-y: hidden;
 }
