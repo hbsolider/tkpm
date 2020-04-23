@@ -1,0 +1,26 @@
+<div class="title d-flex justify-content-between">
+    <div class="title-child">
+        <h1>Academy <small>list of class</small></h1>
+    </div>
+    <button type="button" class="btn btn-dark mt-2" onclick="add()">Add new here <i
+            class="fas fa-plus-circle"></i></button>
+</div>
+<div class="row col-md col-md-offset-2 custyle mt-2">
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+
+        {{#if data}}
+        {{{classdata data}}}
+        {{else}}
+        <td colspan="4" class="text-center">Don't have any data!!! Please add new</td>
+        {{/if}}
+        
+    </table>
+</div>

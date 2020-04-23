@@ -1,0 +1,35 @@
+{
+  "name": "tkpm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoai-Bao/tkpm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hoai-Bao/tkpm/issues"
+  },
+  "homepage": "https://github.com/Hoai-Bao/tkpm#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.3",
+    "express-session": "^1.17.1",
+    "faker": "^4.1.0",
+    "handlebars": "^4.7.6",
+    "mongoose": "^5.9.10",
+    "nodemon": "^2.0.3",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  }
+}
