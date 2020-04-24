@@ -6,11 +6,11 @@ const moment = require('moment');
 
 //clone student
 router.post('/clone', async (req, res) => {
-    const arrclass = await Class.find();
+    const arrclass = await Class.find({ 'idteacher': req.user._id });
     const arr = getClass(arrclass);
     const student = new Student({
         name: faker.name.findName(),
-        class: arr[Math.floor(Math.random() * arr.length)],
+        class: arr[Math.floor(Math.random() * (arr.length))],
         birthday: moment(faker.date.between('1998-01-01', '2001-12-31')).format("YYYY-MM-DD"),
         idteacher: req.user._id,
         address: faker.address.city()
@@ -59,19 +59,19 @@ router.delete('/delete/:id', async (req, res) => {
         res.status(400).send({ error: error });
     }
 })
-router.put('/update/:id',async(req,res)=>{
+router.put('/update/:id', async (req, res) => {
     try {
-        await Student.findByIdAndUpdate({_id:req.params.id},{
-            name:req.body.name,
-            class:req.body.class,
-            address:req.body.address,
-            birthday:req.body.birthday
+        await Student.findByIdAndUpdate({ _id: req.params.id }, {
+            name: req.body.name,
+            class: req.body.class,
+            address: req.body.address,
+            birthday: req.body.birthday
         })
-        res.status(200).send({success:'success'})
+        res.status(200).send({ success: 'success' })
     } catch (error) {
-        res.status(400).send({error})
+        res.status(400).send({ error })
     }
-    
+
 })
 
 

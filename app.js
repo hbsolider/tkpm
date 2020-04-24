@@ -49,10 +49,24 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 //* use routes
+app.use(function(req, res, next) {
+    //Authentication
+    if (req.isAuthenticated()){
+      res.locals.user = req.user;
+      res.locals.authenticated = ! req.user.anonymous;
+    }
+    next();
+  });
 app.use('/', indexRoute);
 app.use('/user', userRoute);
-app.use('/class',classRoute);
-app.use('/student',studentRoute);
+app.use('/class', classRoute);
+app.use('/student', studentRoute);
+
+//* oops page
+app.get('*', function (req, res) {
+    return res.render('patials/oop');
+});
+
 //*end use
 app.listen(3000, () => {
     console.log('App listening on port 3000!');

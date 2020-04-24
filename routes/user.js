@@ -11,12 +11,18 @@ router.post('/login', passport.authenticate('local-signin', {
     res.locals.user = req.user;
     res.redirect('/academy')
 })
-router.get('/login', (req, res) => {
+router.get('/login', (req, res,next) => {
+    if(req.user){
+        return next();
+    }
     res.render('user/login', {
         message: req.flash('error')
     });
 })
 router.get('/register', (req, res) => {
+    if(req.user){
+        return next();
+    }
     res.render('user/register', {
         message: req.flash('error')
     })
@@ -26,7 +32,7 @@ router.post('/register', passport.authenticate('local-signup', {
     failureRedirect: '/user/register',
     failureFlash: true
 }), (req, res) => {
-    res.send('abc');
+    res.redirect('/')
 })
 
 

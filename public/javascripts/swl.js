@@ -22,22 +22,23 @@ async function add() {
         url: "http://localhost:3000/class/new",
         data: body,
         dataType: "json",
-        success: function (res) {
-            if (!res.check) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                })
-            } else {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                location.reload()
-            }
+        success: async function (res) {
+            console.log(res)
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            location.reload()
+        },
+        error: function (e) {
+            console.log(e);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            })
         }
     });
 };
@@ -78,14 +79,12 @@ $(document).ready(() => {
 
 })
 //! class
-function edit(id) {
-}
 function del(id) {
     $.ajax({
         type: "DELETE",
         url: `/class/delete/${id}`,
         dataType: "json",
-        success: function (response) {
+        success: async function (response) {
             successSwal('Delete success!')
         },
         error: function (e) {
@@ -95,15 +94,15 @@ function del(id) {
 }
 
 function view(id) {
-
+    window.location.href = `http://localhost:3000/academy/${id}`
 }
 
 //! student
 function editS(id) {
-    
+
     tempedit(() => {
         $('#editinvisible').click()
-       
+
         $('#submit1').click(() => {
             $('#updatestudentcc').submit();
         })
@@ -122,10 +121,10 @@ function editS(id) {
             success: async function (response) {
                 successSwal('Update Success !!')
             },
-            error:function(e){
+            error: function (e) {
                 alert(e);
             }
-            
+
         });
     })
 }
@@ -169,20 +168,20 @@ function clone() {
         }
     });
 }
-$('document').ready(()=>{
+$('document').ready(() => {
 
     $('#chooseclass select').on('change', function (e) {
         var optionSelected = $("option:selected", this);
         var valueSelected = this.value;
         console.log(valueSelected)
-        if(valueSelected == '-1'){
-            window.location.href=`http://localhost:3000/academy`
-        }else{
-            window.location.href=`http://localhost:3000/academy/${valueSelected}`
+        if (valueSelected == '-1') {
+            window.location.href = `http://localhost:3000/academy`
+        } else {
+            window.location.href = `http://localhost:3000/academy/${valueSelected}`
         }
-        
+
     });
-    
+
 })
 
 function successSwal(title) {

@@ -6,52 +6,57 @@ router.get('/', (req, res) => {
     res.render('index')
 })
 router.get('/class', auth, async (req, res) => {
-    await Class.find().then((data) => {
+    await Class.find({ 'idteacher': req.user._id }).then((data) => {
         res.render('Academy-class', {
             data: data
         })
     })
 })
-router.get('/academy/:id',auth,async(req,res,next)=>{
-    if(typeof(req.params.id)==='undefined'||req.params.id===-1){
+router.get('/academy/:id', auth, async (req, res, next) => {
+    if (typeof (req.params.id) === 'undefined' || req.params.id === -1) {
         next()
-    }else{
+    } else {
         var check = false;
-        const arrcl = await getClass()
-        for(var i =0;i<arrcl.length;i++){
-            if(req.params.id===arrcl[i]){
-                check=true;
+        var arrcl = [];
+        await Class.find({ 'idteacher': req.user._id }).then(data => {
+            data.forEach((e) => {
+                arrcl.push(e.number);
+            })
+        })
+        for (var i = 0; i < arrcl.length; i++) {
+            if (req.params.id === arrcl[i]) {
+                check = true;
             }
         }
-        if(!check){
+        if (!check) {
             next();
         }
-        const students = await Student.find({'class':req.params.id});
-        res.render('Academy', {
-            students,
-            Class: arrcl,
-            check:req.params.id
-        })
+        else {
+            const students = await Student.find({ 'class': req.params.id, 'idteacher': req.user._id });
+            res.render('Academy', {
+                students,
+                Class: arrcl,
+                check: req.params.id
+            })
+        }
+
     }
 })
 router.get('/academy', auth, async (req, res) => {
-    const arrcl = await getClass()
-    const students = await Student.find();
+    var arrcl = [];
+    await Class.find({ 'idteacher': req.user._id }).then(data => {
+        data.forEach((e) => {
+            arrcl.push(e.number);
+        })
+    })
+    const students = await Student.find({ 'idteacher': req.user.id });
     res.render('Academy', {
         students,
         Class: arrcl,
-        check:-1
+        check: -1
     })
 })
 
 
-async function getClass() {
-    var arr = []
-    await Class.find().then(data=>{
-        data.forEach((e)=>{
-            arr.push(e.number);
-        })  
-    })
-    return arr;
-}
+
 module.exports = router;

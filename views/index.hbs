@@ -5,10 +5,14 @@
             <h3><a href="/academy">View Academy</a></h3>
         </div>
         <div class="view hvr-grow-shadow">
-            <h3><a href="">My Profile</a></h3>
+            <h3><a href="/class">My Class</a></h3>
         </div>
         <div class="view hvr-grow-shadow">
-            <h3><a href="">My Profile</a></h3>
+            {{#if user}}
+            <h3><a href="/user/logout">Log out</a></h3>
+            {{else}}
+            <h3><a href="/user/login">Sign in</a></h3>
+            {{/if}}
         </div>
     </div>
 </div>
